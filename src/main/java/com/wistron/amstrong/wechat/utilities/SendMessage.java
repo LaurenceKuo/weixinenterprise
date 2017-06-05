@@ -1,9 +1,5 @@
 package com.wistron.amstrong.wechat.utilities;
 
-import javax.ws.rs.core.Context;
-
-import org.json.JSONObject;
-
 public class SendMessage {
 
 	//发送接口  

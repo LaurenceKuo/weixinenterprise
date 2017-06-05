@@ -1,34 +1,35 @@
 package com.wistron.amstrong.wechat.utilities;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.ConnectException;
-import java.net.InetSocketAddress;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import net.spy.memcached.MemcachedClient;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
-import com.wistron.amstrong.wechat.dao.AccessTokenDao;
-import com.wistron.amstrong.wechat.entities.AccessToken;
-import com.wistron.amstrong.wechat.utilities.MyX509TrustManager;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.wistron.amstrong.wechat.dao.AccessTokenDao;
+import com.wistron.amstrong.wechat.entities.AccessToken;
 
 
 

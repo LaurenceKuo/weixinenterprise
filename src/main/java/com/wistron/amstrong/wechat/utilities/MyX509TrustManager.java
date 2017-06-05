@@ -8,8 +8,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import com.wistron.amstrong.wechat.controller.NewsController;
-
 
 class MyX509TrustManager implements X509TrustManager {
 	 /*

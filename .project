@@ -3,6 +3,7 @@
 	<name>WeixinEnterprise</name>
 	<comment></comment>
 	<projects>
+	WeixinEnterprise
 	</projects>
 	<buildSpec>
 		<buildCommand>
