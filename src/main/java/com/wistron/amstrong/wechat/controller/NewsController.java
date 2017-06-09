@@ -139,7 +139,7 @@ public class NewsController extends SendMessage {
 	       String access_token = WeixinUtil.getAccessToken(corpId, secret).getToken();  
 	         	       
 	      // int result = WeixinUtil.PostMessage(access_token, "POST", POST_URL, postData);  
-	       rulJsonObject = WeixinUtil.PostMessage(access_token, "POST", POST_URL, postData);  
+	       rulJsonObject = WeixinUtil.PostToWeiXin(access_token, "POST", POST_URL, postData);  
 	       // 打印结果  
 	        if(0==rulJsonObject.getInt("errcode")){  
 	           return "操作成功";  

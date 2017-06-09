@@ -19,11 +19,11 @@ class MyX509TrustManager implements X509TrustManager {
 	 MyX509TrustManager() throws Exception {
 	  // create a "default" JSSE X509TrustManager.
 	  KeyStore ks = KeyStore.getInstance("JKS");
-	  CommonUtil common = new CommonUtil();
-	  String path =  common.getWebInfPath(MyX509TrustManager.class.getResource("").getPath());
-	  ks.load(new FileInputStream(path+"wiweixin.keystore"), "laurencekuo".toCharArray());
+	  //CommonUtil common = new CommonUtil();
+	  //String path =  common.getWebInfPath(MyX509TrustManager.class.getResource("").getPath());
+	  //ks.load(new FileInputStream(path+"wiweixin.keystore"), "laurencekuo".toCharArray());
 	  //ks.load(new FileInputStream("..\\..\\..\\..\\..\\..\\..\\webapp\\WEB-INF\\wiweixin.keystore"), "laurencekuo".toCharArray());
-
+	  ks.load(null, null);
 	  TrustManagerFactory tmf =
 	   TrustManagerFactory.getInstance("SunX509", "SunJSSE");
 	   tmf.init(ks);

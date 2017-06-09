@@ -94,7 +94,7 @@ public class WeixinUtil {
      * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
      *  WeixinUtil.PostMessage(access_token, "POST", POST_URL, PostData);  
      */
-    public static JSONObject PostMessage(String token, String requestMethod, String requestUrl, String postData) {
+    public static JSONObject PostToWeiXin(String token, String requestMethod, String requestUrl, String postData) {
         JSONObject jsonObject = null;
         StringBuffer buffer = new StringBuffer();
         try {
@@ -228,44 +228,7 @@ public class WeixinUtil {
      * @param appid 凭证
      * @param appsecret 密钥
      * @return
-     *//**
-    public static AccessToken getAccessToken(String appid, String appsecret) {
-        AccessToken accessToken = null;
-
-        Object obj = null;
-
-        try {
-        	//獲取本雞快取，當Token超過7200秒就失效。
-        	MemcachedClient  mc = new MemcachedClient(new InetSocketAddress("127.0.0.1", 80));
-            obj = mc.get(appid);
-            if (obj == null){
-                //已过期 重新请求
-                String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
-                JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-                // 如果请求成功
-                if (null != jsonObject) {
-                    try {
-                        accessToken = new AccessToken();
-                        accessToken.setToken(jsonObject.getString("access_token"));
-                        accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
-                        mc.set(appid,7200,accessToken);
-                    } catch (JSONException e) {
-                        accessToken = null;
-                        // 获取token失败
-                        log.error("获取token失败 errcode:{"+jsonObject.getInt("errcode")+"} errmsg:{"+jsonObject.getString("errmsg")+"}");
-                    }
-                }
-            }else {
-                System.out.println("拉取AccessToken为---->缓存 " );
-                accessToken = (AccessToken)obj;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return accessToken;
-    }	
-    */
-    
+     */
     public static AccessToken getAccessToken(String corpid, String secretid) throws JSONException, SQLException, Exception {
     	AccessToken accessToken = null;
         AccessTokenDao accessTokenDao = new AccessTokenDao();
@@ -276,7 +239,7 @@ public class WeixinUtil {
             if (accessToken == null){
                 //已过期 重新请求
                 String requestUrl = access_token_url.replace("CORPID", corpid).replace("SECRETID", secretid);
-                JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
+                JSONObject jsonObject = PostToWeiXin("", "GET", requestUrl, null);
                 
                 if (null != jsonObject)
                 {

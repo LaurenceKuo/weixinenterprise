@@ -1,5 +1,7 @@
 package com.wistron.amstrong.wechat.utilities;
 
+import org.json.JSONObject;
+
 public class SendMessage {
 
 	//发送接口  
@@ -108,27 +110,26 @@ public class SendMessage {
         String postData = "{\"touser\": \"%s\",\"toparty\": \"%s\",\"totag\": \"%s\",\"msgtype\": \"mpnews\",\"agentid\": \"%s\",\"mpnews\": {\"articles\":%s}\"safe\":\"0\"}";  
         return String.format(postData, touser,toparty,totag,agentid,articlesList);  
     }  
-    // public  String corpId = "wwc6d5528ef1cce0fa";
-    // public  String secret = "pjRN8ZCO2y-fzjjNe6FzdFU0tkCJv8HgOsFZXcywC_A";
+
     
     //示例  
     /** 
      * text示例 
      * */
-    /*
+    
    public static void main(String[] args) throws Exception {  
   
 	   JSONObject rulJsonObject = null;
 	   System.out.println("Step1" ); 
        // 调取凭证  
-       String access_token = WeixinUtil.getAccessToken(corpId, secret).getToken();  
-       //String access_token = "sD55fphxyqgZyl3-1Jlwp4MzrUlliOLDGs7l2ecUx1h11KxlW7_4lBVfYqyKuVS-Ow8Es5FGpojJIovXLytC2noLVB5tQl9E_kNoHGEWVhhi5lOkvDn1oOSh7FIv7eiCif8hAsCWpZOSa-viiRcTnQ_1fZBkIPECSmf-MSLDWNyi5TE_R6OUGO2XO3KNS5ThusspAbTwd_1wN-nygdcYJ32TjaATsk1SaN9fLE6V-0wc4cAbh_CvKeDmmpe0ElPtll-k716naWvoEiKRo0Fd05MzYApk9a2AcTm08ehFOqU";
+       String access_token = WeixinUtil.getAccessToken("wwc6d5528ef1cce0fa", "pjRN8ZCO2y-fzjjNe6FzdKxHX2tGv_nM7JccPSZuwpU").getToken();  
+       //String access_token = "oZJEEn2RHHcmetVp5E6IJaSVjh2k3OgOF-sL0EDeufHWSFw50s2Qt5gduFoyhjzY8mc7W53ypkAKYurBbPMYbqAx_NJOmkzfYhwEUYTSXtHxrr0s5kidQYShrvLuO2EuslmuFpvfLJP3sl96VG3ooARFogWh523_-nzZ5kCrXnvnYF5hK15lD4186OPN_kziQnBY2I3U6BWs0Hgnnld2ZmxsraaSneMD0nG72mvc9sES7D-CW8wIgzQR-zkyUGwG8k1tzKoLqmyU1iHUrurY5sJFdswPSMQ87B5uCGNd6l4";
        // 整合图文  
        System.out.println("access_token: " + access_token ); ;  
  
        // Post的数据  
-       String PostData = STextMsg("@ALL", "1", "@ALL", "1000002", "Send Text \\n 發送文字 \\n 发送文字 ");  
-       rulJsonObject = WeixinUtil.PostMessage(access_token, "POST", POST_URL, PostData);  
+       String PostData = STextMsg("@ALL", "", "", "1000002", "Send Text \\n 發送文字 \\n 发送文字 ");  
+       rulJsonObject = WeixinUtil.PostToWeiXin(access_token, "POST", POST_URL, PostData);  
        // 打印结果  
         if(0==rulJsonObject.getInt("errcode")){  
             System.out.println("操作成功");  
@@ -137,5 +138,5 @@ public class SendMessage {
             System.out.println("操作失败");  
         }  
 }  
-	*/
+	
 }
