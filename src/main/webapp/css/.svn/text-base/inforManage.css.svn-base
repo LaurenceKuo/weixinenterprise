@@ -1,0 +1,17 @@
+#uid {width:15%;height:40px;margin-top:20px;margin-left:67%;}
+#search {margin-left:84%;margin-top:-90px;}
+#s input:active{color:red;}
+#s input:hover{background-color:#4682B4;}
+
+#error{width:300px;height:30px;color:red;
+				margin-left:67%;margin-top:-75px;}
+
+#searchAll {margin-left:135%;margin-top:-160px;}
+#all{width:30%;margin-left:50%;}
+#all input{}
+
+#userM{margin-left:45%;}
+#ta a:hover{color:red;text-decoration:none;}
+
+
+

@@ -58,8 +58,8 @@ public class NewsController extends SendMessage {
 		 String postData = SNewsMsg("@ALL", "1", "@ALL", "1000002", articlesList);  
 		 
 		 // 调取凭证  
-	       //String access_token = WeixinUtil.getAccessToken(corpId, secret).getToken();  
-	       String access_token = "LDBneyDqSEsIQCseo7V8hJxxgE6KwbDeHTFG-UdM0Zj92gLPxwWi11-AKJL9QlyvufFgb4AzhJ64jjn5mIF-hBYFgzTGU6GFTxl8WJeLZz07YoNvsn4pMzehTcqXFMdxD2J0RC3YVvNkWVmeTRocNl7vS2BdHAX7cq32qWGHrn25CIABq3xPd5JgWZ4MPKj8F-ojGZ7oGjnXEw4U6DjSi9CWmJ6AoZoOTP2_HjRMQTJrXhSy_Wl4rclMym5Dmq6hLoGXbxTuIUriVi3ngV-AVvwKb3hUHF0whchoTzmOg3U";  
+	       String access_token = WeixinUtil.getAccessToken(corpId, secret).getToken();  
+	       //String access_token = "LDBneyDqSEsIQCseo7V8hJxxgE6KwbDeHTFG-UdM0Zj92gLPxwWi11-AKJL9QlyvufFgb4AzhJ64jjn5mIF-hBYFgzTGU6GFTxl8WJeLZz07YoNvsn4pMzehTcqXFMdxD2J0RC3YVvNkWVmeTRocNl7vS2BdHAX7cq32qWGHrn25CIABq3xPd5JgWZ4MPKj8F-ojGZ7oGjnXEw4U6DjSi9CWmJ6AoZoOTP2_HjRMQTJrXhSy_Wl4rclMym5Dmq6hLoGXbxTuIUriVi3ngV-AVvwKb3hUHF0whchoTzmOg3U";  
 	       
 	       int result = WeixinUtil.PostMessage(access_token, "POST", POST_URL, postData);  
 	       // 打印结果  
@@ -74,8 +74,8 @@ public class NewsController extends SendMessage {
 		 {
 			 e.printStackTrace();
 		 }
-	 }
-	 */
+	 }*/
+	 
 	 @POST
 	 @Path("/SendNews")
 	 @Consumes({MediaType.APPLICATION_JSON})
@@ -104,9 +104,7 @@ public class NewsController extends SendMessage {
          String str = null;
          while ((str = bufferedReader.readLine()) != null)
              buffer.append(str);
-
          reqJsonObject = new JSONObject(buffer.toString());
-		 
          //寫入News參數
 		  //ArrayList<NewsEntities> newslist= new ArrayList<NewsEntities> ();
 		  //NewsEntities newsEntity1 = new  NewsEntities();
