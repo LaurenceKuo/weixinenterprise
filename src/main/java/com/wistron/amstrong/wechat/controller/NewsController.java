@@ -81,6 +81,8 @@ public class NewsController extends SendMessage {
 	 @Consumes({MediaType.APPLICATION_JSON})
 	 public String sendNews(@Context HttpServletRequest request) throws Exception
 	 { 
+		 System.out.println("Go In N First");
+		 String toParty ="";
 	     JSONObject reqJsonObject = null;
 	     JSONObject rulJsonObject = null;
 	     StringBuffer buffer = new StringBuffer();
@@ -105,6 +107,8 @@ public class NewsController extends SendMessage {
          while ((str = bufferedReader.readLine()) != null)
              buffer.append(str);
          reqJsonObject = new JSONObject(buffer.toString());
+         
+         toParty = reqJsonObject.getString("toparty");
          //寫入News參數
 		  //ArrayList<NewsEntities> newslist= new ArrayList<NewsEntities> ();
 		  //NewsEntities newsEntity1 = new  NewsEntities();
@@ -128,10 +132,10 @@ public class NewsController extends SendMessage {
 		 //JSONArray jsonAry = convertToJSONObject(newslist);
 		 //String articlesList = jsonAry.toString(); 
 		 
-		 String articlesList = "[" + reqJsonObject.toString() + "]";
+		 String articlesList = "[" + reqJsonObject.getJSONObject("message").toString() + "]";
 		 
 		 System.out.println("articlesList1-1 :" + articlesList);
-		 String postData = SNewsMsg("@ALL", "1", "@ALL", "1000002", articlesList);  
+		 String postData = SNewsMsg("", toParty, "", "1000002", articlesList);  
 		 
 		 // 调取凭证  
 	       String access_token = WeixinUtil.getAccessToken(corpId, secret).getToken();  
