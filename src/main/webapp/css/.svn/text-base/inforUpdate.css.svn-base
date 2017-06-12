@@ -1,0 +1,16 @@
+
+
+
+
+#ok input{width:13%;height:40px;}
+#ok input:hover{color:#fff;}
+
+form{padding-left:38%; margin-top:10px;
+		height:480px;}
+.center-block .form-control{width:35%;height:40px;}
+#qui{margin-left:22%;margin-top:-95px;}
+#quit input{width:13%;height:40px;}
+#quit input:hover{color:#fff;}
+#error{width:300px;height:25px;margin-top:-10px;
+		color:red;}
+

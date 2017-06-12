@@ -1,0 +1,18 @@
+
+form{margin-top:100px;}
+.btn{width:100%;margin-top:-10px;}
+.btn:active {
+	background-color:#00E0ED;
+}
+#log{margin-top:60px;}
+img{margin:auto;border:4px solid #B0C4DE;}
+form{height:300px;margin-left:10%;margin-top:-10px;
+}
+.form-group input{width:90%;height:50px; }
+form div{padding-top:15px;}
+.col-sm-4{height:300px;border:2px solid #ccc;margin-left:12px;
+		margin-top:100px;background-color:#fff;}
+/*#vz{font-size:28px;color:red;}*/
+#place{width:20%;height:80px;margin-top:20px;}
+#error{color:red;font-size:16px;width:328px;height:38px;
+		margin-top:-10px;border:0;}
