@@ -19,22 +19,27 @@
 
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="js/json2.js"></script>
-<script >
-    
+
+<script>
     function sendMessage(){
       var title=$("#title").val();
-      
+      var party=document.getElementById("party");
+      if(party.length>0){
+         var partise=party.options[party.selectedIndex].value;
+      }else{
+         var partise=' ';
+      }
       if(title==""||title==undefined)
       {
         title=' ';
       }
       var data={
-              toparty :$("#uxParty").val(),
+              toparty :partise,
               message:{
                 title:title,
-                description:$("#uxmsg").val(),
+                description:$("#msg").val(),
                 picUrl:'',
-                url:''
+                url:$("#url").val()
         }
       }
       var msg = $.ajax({  
@@ -47,35 +52,78 @@
               }).responseText; 
           $("#error").html(decodeURI(msg)); 
     }
+   //新版本的 JSON 修改了 API，将 JSON.stringify() 和 JSON.parse() 两个要领都注入到了 Javascript 的内建对象里面，
+   //前者变成了 Object.toJSONString()，而后者变成了 String.parseJSON()。如果提示找不到toJSONString()和parseJSON()要领，则说明您的json包版本太低
+    function getPartyTag(){
+        /*
+                date:2017/6/13
+                description:获取部门
+        */
+        show("div1");
+        var party=document.getElementById("party");
+        party.options[0]= new Option('--请选择发送部门--',0)
+        var partise = $.ajax({  
+            type: "post",  
+            url:'http://10.41.56.60/weixinenterprise/rest/Manager/GetPartiesList',//10.38.123.11
+            dataType : 'json',
+            contentType : 'application/json',
+            async:false  
+                }).responseText;
+        var obj =JSON.parse(partise)  ;
+        //$("#error").html(decodeURI(partise)); 
+        for(var i=0;i<obj.length;i++){
+          //alert(obj[i].name+":"+obj[i].id);
+              party.options[i+1]= new Option(obj[i].depName,obj[i].depId)
+          }
+          //alert(party.options[0].text+":"+party.options[0].value);
+        party.options[0].selected = true;
 
-    function getParty(){
-      /* var party = $.ajax({  
-          type: "get",  
-          url:'http://10.41.56.60/weixinenterprise/rest/News/SendNews',
-          dataType : 'json',
-          contentType : 'application/json',
-          async:false  
-              }).responseText; 
-          $("#error").html(decodeURI(msg)); */
-          var iparty= new HashMap();
-          iparty.put('0','--请选择发送部门--');
-          iparty.put('1','部门1');
-          iparty.put('2','部门2');
-          alert("size："+iparty.size()+" key1："+iparty.get("0")); 
-          var party=document.getElementById("uxParty");
-            for(var i=0;i<iparty.length;i++){
-                party.options[i]= new Option(iparty[i],i)
-                //$("#uxParty").options.add(new Option(i, iparty[i])); 
-            }
-
-              //选中省份之后，根据索引动态载入相应城市
-            //清空上次的选项
-       // city.options.length=0;
-        //获取省一级的下拉列表选中的索引
+        /*
+                date:2017/6/13
+                description:获取标签
+        */
+        var tag=document.getElementById("tag");
+        tag.options[0]= new Option('--请选择发送群组--',0)
+        var tags = $.ajax({  
+            type: "post",  
+            url:'http://10.41.56.60/weixinenterprise/rest/Manager/GetTagsList',
+            dataType : 'json',
+            contentType : 'application/json',
+            async:false  
+                }).responseText;
+        var obj =JSON.parse(tags)  ;
+        for(var i=0;i<obj.length;i++){
+              tag.options[i+1]= new Option(obj[i].tagName,obj[i].tagId)
+          }
+        tag.options[0].selected = true;
+     /*另一种呼叫方式 
+      清空上次的选项
+        party.options.length=0;
+        $.ajax({
+                // url:'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=appid&secret=secret', 10.38.123.11
+                url:'http://10.41.56.60/weixinenterprise/rest/Manager/GetPartiesList',
+                  type:"get",
+                  async: false,
+                  success: function (result) {
+                       alert(1);
+                    $("#error").html(decodeURI(result));
+                      
+                  },
+                  error: function (result) {
+                
+                      for (var r in result){
+                        $("#error").html(decodeURI(r));
+                      }
+                   
+                      //  $("#error").html(decodeURI(mes));
+                  }
+              });    */               
      }
-      
+
+     
 
 </script>
+
 
 <script type="text/javascript" >
     function uploadFile(){
@@ -89,11 +137,9 @@
           timeout: 3000,    //number，单位ms，限制请求的时间，当请求大于设置的时间后，跳出请求
           success:function(responseText,statusText,xhr,$form){
               alert("success");
-              //业务提示
           },//提交成功后的回调函数 。参数详解：responseText，服务器返回的数据内容；statusText，服务器返回的状态
           beforSubmit: function(formData, jqForm, options){
               alert("beforSubmit");
-              //业务提示
           },//提交之前的回调函数。参数详解：formData，数组对象，为表单的内容；jqForm，jQuery对象，封装了表单的元素；options，之前设置的ajaxSubmit的option对象。
       };
     
@@ -106,8 +152,8 @@
  </script>
  
 </head>
-<body onload="getParty()">
-
+<body onload='getPartyTag()'>
+   
 <%! 
   private int initVar=0;
   private int serviceVar=0;
@@ -127,6 +173,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
+              <div class="navbar-brand"> 企业微信 </div>
+          
             <!--  <a class="navbar-brand" href="https://qy.weixin.qq.com/" id="vz">登录企业微信</a>
               <a class="navbar-brand" href="https://work.weixin.qq.com/wework_admin/commdownload?from=mngindex" id="reg">下载客户端</a>
                <a class="navbar-brand" href="https://work.weixin.qq.com/join_form/8Z6j5aeiRghKFU8ajQIwsQ/member_join_web" id="reg">点击链接加入我的企业“江”，一起开启全新办公体验吧</a> -->
@@ -137,43 +185,107 @@
         </nav>
        
         <div class="row-fluid">
-            <div class="col-sm-4"></div>            
-                
-            <div class="col-sm-3">
-            
-              <form id="sendMessage" method="post" action="" onsubmit="sendMessage();">
+            <div class="col-sm-7" id="pageImage">            
+                <img id="image" class="img-responsive" src="image/page.jpg">
+            </div>
+            <div class="col-sm-4" id="cen_right_top"> 
                 <div class="form-group">
-                  <select id='uxParty' class="form-control">
-                    <option value=''>--请选择部门--</option>
-                  </select>
+                  <h3 onmouseover="changeTab(this)" class="form-control" id="h31">发送讯息</h3>
+                  <h3 onmouseover="changeTab(this)" class="form-control" id="h32">加入企业微信</h3>
                 </div>
-                <div class="form-group">
-                  <input type="text" name="username" class="form-control" id="title" value="" placeholder="请输入发送主题">
-                </div>
-                <div class="form-group">
-                   <textarea id="uxmsg" name="MSG"  class="form-control" cols=40 rows=4 placeholder="请输入发送信息"></textarea>
-                   
-                </div>
-                <!-- 显示信息 -->
-              	<label id="error"></label>
-                <div class="form-group">
-                  <input type="button" value="send" class="btn btn-info "  />
-                </div>
-              
-              </form>
-              <div>扫描二维码加入企业微信</div>  
-              <img id="picture" class="img-responsive" src="image/QRCode.png"></div>
+              <div style="display:block" id="div1">
+                   <form id="sendMessage" method="post" action="" onsubmit="">
+                      <span id="send" >
+                        <div class="form-group">
+                          <label for="title"></label>
+                          <select id='party' class="form-control">
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <select id='tag' class="form-control">
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <input type="text" name="title" class="form-control" id="title" value="" placeholder="请输入发送主题">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" name="url" class="form-control" id="url" value="" placeholder="请输入链接地址">
+                        </div>
+                        <div class="form-group">
+                          <textarea  name="msg"  class="form-control" id="msg" cols=40 rows=4 placeholder="请输入发送信息"></textarea> 
+                        </div>
+                        <!-- 显示信息 -->
+                        <label id="error"></label>
+                        <div class="form-group">
+                            <input type="button" value="send" class="btn btn-info " onclick="sendMessage();" />
+                            
+                        </div>
+                      </span>
+                                   
+                 </form>  
+              </div>
+              <div id="div2">
+                <form >
+                    <div id="scan" class="form-group">扫描二维码加入企业微信</div>  
+                    <img id="picture" class="img-responsive" src="image/QRCode.png" >   
+                </form>        
+              </div>
+            </div>
+
           <!--      <form id="imageForm" action="" method="post" enctype="multipart/form-data" name="upload_form" onsubmit="uploadFile()">
                   <label>选择图片文件</label>
                   <input name="imgfile" type="file" accept="" />
                   <input name="upload" type="submit" value="上传" />
 
               </form> -->
-              
-              <div id="place"></div>
-        	</div>
-           
+
+              <!--tab 特效-->
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+
+#cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#F3F3F3;}
+#cen_right_top h3{line-height:35px;text-align:center;float:left;height:35px;width:50%;margin:0px;padding:0px;background-color:#F3F3F3;font-size:14px;color:#333333;font-weight:lighter;cursor:pointer;}
+#cen_right_top form{font-size:14px;display:none;clear:both;height:70%;padding:20px 0px 0px 20px;border-top-width:medium;border-top-style:solid;border-top-color:#A0603D;}
+</style>
+      
+
         </div>
   	</div>
+    <script >
+        function hid(id){
+          var hidArea = document.getElementById(id).getElementsByTagName("*");
+                for(var i = 0;i<hidArea.length;i++){
+                    hidArea[i].style.display="none";
+                }
+          }
+        function show(id){
+          var tag1=document.getElementById("h31");
+          var tag2=document.getElementById("h32");
+          if(id=="div1"){
+              tag1.className="";
+              tag2.className="active";
+          }else if(id=="div2"){
+              tag1.className="active";
+              tag2.className="";
+          }
+          var showArea = document.getElementById(id).getElementsByTagName("*");
+          for(var i = 0;i<showArea.length;i++){
+              showArea[i].style.display="block";
+          }
+        }
+
+        function changeTab(ob){
+          var id=$(ob).attr("id");  
+          if(id=="h31"){
+              show("div1");
+              hid("div2");
+          }else{
+              show("div2");
+              hid("div1");
+          }      
+     }
+    </script>
 </body>
 </html>
