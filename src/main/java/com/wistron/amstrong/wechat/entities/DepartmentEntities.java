@@ -2,31 +2,32 @@ package com.wistron.amstrong.wechat.entities;
 
 public class DepartmentEntities {
 
-	private String Name;
-	private Integer Id;
+	private String DepName;
+	private Integer DepId;
 	
-	public String getName()
+	public String getDepName()
 	{
-		return this.Name;
-	}
-	
-	public void setName(String Name)
-	{
-		this.Name=Name;
-	}
-	public Integer getId()
-	{
-		return this.Id;
+		return this.DepName;
 	}
 	
-	public void setId(Integer Id)
+	public void setDepName(String DepName)
 	{
-		this.Id=Id;
+		this.DepName=DepName;
+	}
+	public Integer getDepId()
+	{
+		return this.DepId;
 	}
 	
-	public DepartmentEntities (String Name, Integer Id)
+	public void setDepId(Integer DepId)
 	{
-		this.Name=Name;
-		this.Id=Id;
+		this.DepId=DepId;
 	}
+	
+	public DepartmentEntities (String DepName, Integer DepId)
+	{
+		this.DepName=DepName;
+		this.DepId=DepId;
+	}
+	
 }

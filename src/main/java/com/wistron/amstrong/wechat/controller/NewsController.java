@@ -91,15 +91,12 @@ public class NewsController extends SendMessage {
          InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
          BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
          
-		  Properties prop = new Properties(); 
+	     //Get CorpID and Secret to get Token
 		  CommonUtil common = new CommonUtil();
-		  String path =  common.getWebInfPath(NewsController.class.getResource("").getPath());
-		  System.out.println("Path: " + path);
-     	  FileInputStream fis = new FileInputStream(path+"CorpID.properties");    
-	      prop.load(fis); 
+		  Properties prop =common.getConfigProperties("CorpID.properties") ;
 	        
-	        String corpId = prop.getProperty("corpId").trim(); 
-	        String secret = prop.getProperty("secret").trim();
+	      String corpId = prop.getProperty("corpId").trim(); 
+	      String secret = prop.getProperty("secret").trim();
          
 		 try{
 
@@ -108,29 +105,7 @@ public class NewsController extends SendMessage {
              buffer.append(str);
          reqJsonObject = new JSONObject(buffer.toString());
          
-         toParty = reqJsonObject.getString("toparty");
-         //寫入News參數
-		  //ArrayList<NewsEntities> newslist= new ArrayList<NewsEntities> ();
-		  //NewsEntities newsEntity1 = new  NewsEntities();
-		 
-		 //Create 1 news article
-		  //newsEntity1.setTitle(reqJsonObject.getString("TITLE"));
-		  //newsEntity1.setDesription(reqJsonObject.getString("DESCRIPTION"));
-		  //newsEntity1.setPicUrl(reqJsonObject.getString("PICURL"));
-		  //newsEntity1.setUrl(reqJsonObject.getString("URL"));
-		 
-		 //Create 1 news article
-		  //newsEntity1.setTitle("Baidu");
-		  //newsEntity1.setDesription("Test Link Baidu");
-		  //newsEntity1.setPicUrl("https://www.baidu.com/img/bd_logo1.png");
-		  //newsEntity1.setUrl("https://www.baidu.com/");
-		 
-		 //combine news in List
-		  //newslist.add(newsEntity1);	 
-		 
-		// News list Change to Json formate  
-		 //JSONArray jsonAry = convertToJSONObject(newslist);
-		 //String articlesList = jsonAry.toString(); 
+         toParty = reqJsonObject.getString("toparty"); 
 		 
 		 String articlesList = "[" + reqJsonObject.getJSONObject("message").toString() + "]";
 		 
