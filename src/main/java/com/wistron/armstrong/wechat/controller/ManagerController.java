@@ -1,31 +1,24 @@
-package com.wistron.amstrong.wechat.controller;
+package com.wistron.armstrong.wechat.controller;
 
 
-import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-
-import com.wistron.amstrong.wechat.utilities.CommonUtil;
-import com.wistron.amstrong.wechat.utilities.WeixinUtil;
-import com.wistron.amstrong.wechat.entities.DepartmentEntities;
-import com.wistron.amstrong.wechat.entities.TagEntities;
+import com.wistron.armstrong.wechat.entities.DepartmentEntities;
+import com.wistron.armstrong.wechat.entities.TagEntities;
+import com.wistron.armstrong.wechat.utilities.CommonUtil;
+import com.wistron.armstrong.wechat.utilities.WeixinUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,12 +27,14 @@ import javax.ws.rs.core.Response;
 @Path("/Manager")
 public class ManagerController {
 	 
+	final static Logger logger = Logger.getLogger(ManagerController.class);
+	
 	private String GetPartiesList_Url="https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=ACCESS_TOKEN";
 	private String GetTagsList_Url="https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token=ACCESS_TOKEN";
 	 @POST
 	 @Path("/GetPartiesList")
 	 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	 public Response getPartiesList() throws Exception
+	 public Response getPartiesList() throws Exception, JSONException
 	 { 
 	     JSONObject rulJsonObject = null;
 	     StringBuffer buffer = new StringBuffer();
@@ -51,7 +46,7 @@ public class ManagerController {
 	        
 	      String corpId = prop.getProperty("corpId").trim(); 
 	      String secret = prop.getProperty("secret").trim();
-        
+          
 		 try{
 
 		 // 调取凭证  
@@ -76,17 +71,17 @@ public class ManagerController {
 	        	//Wrap list to GenericEntity
 	            //For not show error when return list, array by Jersey
 	        	GenericEntity<List<DepartmentEntities>> list = new GenericEntity<List<DepartmentEntities>>(departmentlist) {};
-	        	System.out.println("Department: " + departments.toString() );
+	        	logger.info("Department: " + departments.toString());
 	            return Response.ok(list).build();
 	        }         
 	        else {  
-	        	System.out.println ("操作失败 : " + rulJsonObject.getString("errmsg"));
+	        	logger.warn("Get Department Fail : " + rulJsonObject.getString("errmsg"));
 	        	return null;
 		 
 	        	}
 		 }catch (Exception e)
 		 {
-			 System.out.println ("操作失败 : " + e.getMessage());
+			 logger.error("Get Department Fail : " + e.getMessage());
 			 return null;
 		 }
 		 finally
@@ -101,7 +96,7 @@ public class ManagerController {
 	 @POST
 	 @Path("/GetTagsList")
 	 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	 public Response getTagsList() throws Exception
+	 public Response getTagsList() throws Exception, JSONException
 	 { 
 	     JSONObject rulJsonObject = null;
 	     StringBuffer buffer = new StringBuffer();
@@ -138,17 +133,17 @@ public class ManagerController {
 	        	//Wrap list to GenericEntity
 	            //For not show error when return list, array by Jersey
 	        	GenericEntity<List<TagEntities>> list = new GenericEntity<List<TagEntities>>(taglist) {};
-	        	System.out.println("Department: " + tags.toString() );
+	        	logger.info("Tag: " + tags.toString());
 	            return Response.ok(list).build();
 	        }         
 	        else {  
-	        	System.out.println ("操作失败 : " + rulJsonObject.getString("errmsg"));
+	        	logger.warn("Get Tag Fail : " + rulJsonObject.getString("errmsg"));
 	        	return null;
 		 
 	        	}
 		 }catch (Exception e)
 		 {
-			 System.out.println ("操作失败 : " + e.getMessage());
+			 logger.error("Get Tag Fail : " + e.getMessage());
 			 return null;
 		 }
 		 finally

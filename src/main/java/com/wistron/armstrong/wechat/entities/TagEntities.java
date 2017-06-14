@@ -1,4 +1,4 @@
-package com.wistron.amstrong.wechat.entities;
+package com.wistron.armstrong.wechat.entities;
 
 public class TagEntities {
 	
