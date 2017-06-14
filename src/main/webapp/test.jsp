@@ -183,8 +183,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
           </div><!-- /.container-fluid -->
         </nav>
-       
-        <div class="row-fluid">
+       <!--class="row-fluid"-->
+        <div >
             <div class="col-sm-7" id="pageImage">            
                 <img id="image" class="img-responsive" src="image/page.jpg">
             </div>
@@ -217,7 +217,7 @@
                         <!-- 显示信息 -->
                         <label id="error"></label>
                         <div class="form-group">
-                            <input type="button" value="send" class="btn btn-info " onclick="sendMessage();" />
+                            <input type="button" value="发送" class="btn btn-info " onclick="sendMessage();" />
                             
                         </div>
                       </span>
@@ -226,8 +226,9 @@
               </div>
               <div id="div2">
                 <form >
-                    <div id="scan" class="form-group">扫描二维码加入企业微信</div>  
+                    <div id="scan" class="form-group">扫描二维码</div>  
                     <img id="picture" class="img-responsive" src="image/QRCode.png" >   
+                    <div id="add" class="form-group">加入企业微信</div>  
                 </form>        
               </div>
             </div>
@@ -245,8 +246,8 @@
 *{margin:0;padding:0;list-style-type:none;}
 a,img{border:0;}
 
-#cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#F3F3F3;}
-#cen_right_top h3{line-height:35px;text-align:center;float:left;height:35px;width:50%;margin:0px;padding:0px;background-color:#F3F3F3;font-size:14px;color:#333333;font-weight:lighter;cursor:pointer;}
+#cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#000000 ;}
+#cen_right_top h3{line-height:35px;text-align:center;float:left;height:35px;width:50%;margin:0px;padding:0px;background-color:   #DCDCDC   ;font-size:14px;color:#333333;font-weight:lighter;cursor:pointer;}
 #cen_right_top form{font-size:14px;display:none;clear:both;height:70%;padding:20px 0px 0px 20px;border-top-width:medium;border-top-style:solid;border-top-color:#A0603D;}
 </style>
       
@@ -254,12 +255,14 @@ a,img{border:0;}
         </div>
   	</div>
     <script >
+      //#cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#FFDEAD ;}
         function hid(id){
           var hidArea = document.getElementById(id).getElementsByTagName("*");
                 for(var i = 0;i<hidArea.length;i++){
                     hidArea[i].style.display="none";
                 }
           }
+          
         function show(id){
           var tag1=document.getElementById("h31");
           var tag2=document.getElementById("h32");
