@@ -19,6 +19,11 @@
 
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="js/json2.js"></script>
+<!-- 信息弹框 -->
+<link type="text/css" rel="stylesheet" href="css/popModal.css">
+<script src="js/jquery.js"></script>
+<script src="js/popModal.js"></script>
+
 
 <script>
     function sendMessage(){
@@ -50,8 +55,19 @@
           data : JSON.stringify(data),
           async:false  
               }).responseText; 
-          $("#error").html(decodeURI(msg)); 
-    }
+          //$("#error").html(decodeURI(msg)); 
+          document.getElementById("error").innerHTML=msg;
+         $('#btnSend').popModal({
+            html : $('#error'),
+            placement : 'bottomLeft',
+            showCloseBut : true,
+            onDocumentClickClose : true,
+            onOkBut : function(){},
+            onCancelBut : function(){},
+            onLoad : function(){},
+            onClose : function(){}
+          });
+      }
    //新版本的 JSON 修改了 API，将 JSON.stringify() 和 JSON.parse() 两个要领都注入到了 Javascript 的内建对象里面，
    //前者变成了 Object.toJSONString()，而后者变成了 String.parseJSON()。如果提示找不到toJSONString()和parseJSON()要领，则说明您的json包版本太低
     function getPartyTag(){
@@ -215,11 +231,12 @@
                           <textarea  name="msg"  class="form-control" id="msg" cols=40 rows=4 placeholder="请输入发送信息"></textarea> 
                         </div>
                         <!-- 显示信息 -->
-                        <label id="error"></label>
+                        <label id="err"></label>
                         <div class="form-group">
-                            <input type="button" value="发送" class="btn btn-info " onclick="sendMessage();" />
+                            <input id="btnSend" type="button" value="发送" class="btn btn-info " onclick="sendMessage();" />
                             
                         </div>
+                  
                       </span>
                                    
                  </form>  
@@ -239,22 +256,23 @@
                   <input name="upload" type="submit" value="上传" />
 
               </form> -->
-
-              <!--tab 特效-->
-
-<style type="text/css">
-*{margin:0;padding:0;list-style-type:none;}
-a,img{border:0;}
-
-#cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#000000 ;}
-#cen_right_top h3{line-height:35px;text-align:center;float:left;height:35px;width:50%;margin:0px;padding:0px;background-color:   #DCDCDC   ;font-size:14px;color:#333333;font-weight:lighter;cursor:pointer;}
-#cen_right_top form{font-size:14px;display:none;clear:both;height:70%;padding:20px 0px 0px 20px;border-top-width:medium;border-top-style:solid;border-top-color:#A0603D;}
-</style>
-      
-
         </div>
+        <div style="display:none">
+              <div id="error"></div>
+         </div>
   	</div>
+          
+    <!--tab 特效-->
+    <style type="text/css">
+    *{margin:0;padding:0;list-style-type:none;}
+    a,img{border:0;}
+
+    #cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#000000 ;}
+    #cen_right_top h3{line-height:35px;text-align:center;float:left;height:35px;width:50%;margin:0px;padding:0px;background-color:   #DCDCDC   ;font-size:14px;color:#333333;font-weight:lighter;cursor:pointer;}
+    #cen_right_top form{font-size:14px;display:none;clear:both;height:70%;padding:20px 0px 0px 20px;border-top-width:medium;border-top-style:solid;border-top-color:#A0603D;}
+    </style>
     <script >
+      
       //#cen_right_top .active{background:url(images/qiehuan.jpg) no-repeat;color:#FFDEAD ;}
         function hid(id){
           var hidArea = document.getElementById(id).getElementsByTagName("*");
