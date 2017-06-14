@@ -1,4 +1,4 @@
-package com.wistron.amstrong.wechat.utilities;
+package com.wistron.armstrong.wechat.utilities;
 
 import java.io.FileInputStream;
 import java.util.Properties;
