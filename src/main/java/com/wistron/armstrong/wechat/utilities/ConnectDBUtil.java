@@ -12,18 +12,13 @@ import java.util.Properties;
 
 public class ConnectDBUtil {
 	 
-	 public static void main(String[] args) { 
-		 
-		    Properties prop = new Properties();    
-
+	 public static void main(String[] args) throws Exception { 
+		   
 	        try { 
-	        	
-	            //Class文件所在路径  
-
-	        	String path = ClassLoader.getSystemResource("").getPath();
-	        	//String path = System.getProperty("user.dir");
-	        	FileInputStream fis = new FileInputStream(path+"\\DBInfo.properties");    
-		        prop.load(fis); 
+	   
+			    //Get DB Configure
+				CommonUtil common = new CommonUtil();
+				Properties prop =common.getConfigProperties("DBInfo.properties") ;
 		        
 		        String driver = prop.getProperty("driver").trim(); 
 		        String url = prop.getProperty("url").trim(); 
@@ -56,14 +51,12 @@ public class ConnectDBUtil {
 			} 
 	    } 
 	 
-	 public Connection createConnection() throws IOException, ClassNotFoundException, SQLException {
+	 public Connection createConnection() throws Exception, SQLException {
 		  Connection connection;
-		  Properties prop = new Properties(); 
 		  
-		  CommonUtil common = new CommonUtil();
-		  String path =  common.getWebInfPath(ConnectDBUtil.class.getResource("").getPath());
-      	  FileInputStream fis = new FileInputStream(path+"DBInfo.properties");    
-	      prop.load(fis); 
+		   //Get DB Configure
+			CommonUtil common = new CommonUtil();
+			Properties prop =common.getConfigProperties("DBInfo.properties") ;
 	        
 	        String driver = prop.getProperty("driver").trim(); 
 	        String url = prop.getProperty("url").trim(); 

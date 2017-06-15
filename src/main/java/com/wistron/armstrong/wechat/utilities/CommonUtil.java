@@ -1,11 +1,12 @@
 package com.wistron.armstrong.wechat.utilities;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class CommonUtil {
 
-	public String getWebInfPath(String originalPath)
+/*	public String getWebInfPath(String originalPath)
 	{
 		String path = "";
 		
@@ -23,14 +24,13 @@ public class CommonUtil {
 	    
 		return path;
 	}
-	
+	*/
 	public Properties getConfigProperties(String fileName) throws Exception
 	{
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream(fileName);
 		Properties prop = new Properties(); 
-		String path =  getWebInfPath(CommonUtil.class.getResource("").getPath());
-		System.out.println("Path: " + path);
-   	    FileInputStream fis = new FileInputStream(path+fileName);    
-	    prop.load(fis); 
+	    prop.load(input); 
 		return prop;
 	}
 	
