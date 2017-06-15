@@ -29,35 +29,55 @@
     function sendMessage(){
       var title=$("#title").val();
       var party=document.getElementById("party");
+      var tag=document.getElementById("tag");
+      var message=$("#msg").val();
+      var url=$("#url").val();
+      var msg=0;
+      if((title==""||title==undefined) && (message==""||message==undefined) && (url==""||url==undefined) ){
+        msg="未发送任何信息";
+      }
       if(party.length>0){
          var partise=party.options[party.selectedIndex].value;
-      }else{
-         var partise=' ';
       }
+      if(tag.length>0){
+         var tags=tag.options[tag.selectedIndex].value;
+      }
+
+      if( partise <=0 && tags <=0){
+        msg="未选择任何发送部门或群组";
+      }
+      
       if(title==""||title==undefined)
       {
         title=' ';
       }
-      var data={
-              toparty :partise,
-              message:{
-                title:title,
-                description:$("#msg").val(),
-                picUrl:'',
-                url:$("#url").val()
+      if(msg==undefined||msg==0){
+        var data={
+                toparty :partise,
+                totag:tags,
+                message:{
+                  title:title,
+                  description:message,
+                  picUrl:'',
+                  url:url
+          }
         }
+        msg = $.ajax({  
+            type: "post",  
+            url:'http://10.41.56.60/weixinenterprise/rest/News/SendNews',
+            dataType : 'json',
+            contentType : 'application/json',
+            data : JSON.stringify(data),
+            async:false  
+                }).responseText; 
+      
+            //document.getElementById("error").innerHTML=msg;
       }
-      var msg = $.ajax({  
-          type: "post",  
-          url:'http://10.41.56.60/weixinenterprise/rest/News/SendNews',
-          dataType : 'json',
-          contentType : 'application/json',
-          data : JSON.stringify(data),
-          async:false  
-              }).responseText; 
-          //$("#error").html(decodeURI(msg)); 
-          document.getElementById("error").innerHTML=msg;
-         $('#btnSend').popModal({
+        if(msg==undefined){
+            msg="服务器连接失败";
+        }
+        $("#error").html(decodeURI(msg)); 
+        $('#btnSend').popModal({
             html : $('#error'),
             placement : 'bottomLeft',
             showCloseBut : true,
@@ -240,6 +260,7 @@
                       </span>
                                    
                  </form>  
+
               </div>
               <div id="div2">
                 <form >
@@ -249,6 +270,9 @@
                 </form>        
               </div>
             </div>
+            <div style="display:none;width:auto;height:auto" >
+                <div id="error" style="width:auto;height:auto" ></div>
+            </div>  
 
           <!--      <form id="imageForm" action="" method="post" enctype="multipart/form-data" name="upload_form" onsubmit="uploadFile()">
                   <label>选择图片文件</label>
@@ -257,11 +281,9 @@
 
               </form> -->
         </div>
-        <div style="display:none">
-              <div id="error"></div>
-         </div>
+
   	</div>
-          
+   
     <!--tab 特效-->
     <style type="text/css">
     *{margin:0;padding:0;list-style-type:none;}
