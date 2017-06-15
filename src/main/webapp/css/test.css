@@ -15,5 +15,6 @@ form div{width:70%;background-color:#ffffff;}
 #picture{margin-left:28%}
 #scan{margin-left:32% ;font-size:24px;font-family:sans-serif;margin-top:25px;}
 #add{margin-top:15px;margin-left:33%;font-size:18px;font-family:宋体;color: #0000FF ;}
-#error{color:red;font-size:16px;width:100%;height:20px;
+#err{width:100%;height:20px;
 		margin-top:-10px;border:0;}
+#error{color:#0000FF;font-size:16px;}
