@@ -1,11 +1,11 @@
-package com.wistron.amstrong.wechat.dao;
+package com.wistron.armstrong.wechat.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.wistron.amstrong.wechat.entities.AccessToken;
+import com.wistron.armstrong.wechat.entities.AccessToken;
 
 public class AccessTokenDao {
 	
