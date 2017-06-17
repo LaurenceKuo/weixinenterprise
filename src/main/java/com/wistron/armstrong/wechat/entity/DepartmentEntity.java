@@ -1,10 +1,13 @@
-package com.wistron.armstrong.wechat.entities;
+package com.wistron.armstrong.wechat.entity;
 
-public class DepartmentEntities {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DepartmentEntity {
 
 	private String DepName;
 	private Integer DepId;
-	
+	public static ArrayList<DepartmentEntity> depts=null;
 	public String getDepName()
 	{
 		return this.DepName;
@@ -24,7 +27,7 @@ public class DepartmentEntities {
 		this.DepId=DepId;
 	}
 	
-	public DepartmentEntities (String DepName, Integer DepId)
+	public DepartmentEntity (String DepName, Integer DepId)
 	{
 		this.DepName=DepName;
 		this.DepId=DepId;

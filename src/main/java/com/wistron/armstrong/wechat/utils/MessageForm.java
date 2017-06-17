@@ -1,11 +1,9 @@
-package com.wistron.armstrong.wechat.utilities;
+package com.wistron.armstrong.wechat.utils;
 
 import org.json.JSONObject;
 
-public class SendMessage {
+public class MessageForm {
 
-	//发送接口  
-    public static String POST_URL = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN";  
     /** 
      * text消息 
      * @param touser UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送————"touser": "UserID1|UserID2|UserID3" 
@@ -129,7 +127,7 @@ public class SendMessage {
  
        // Post的数据  
        String PostData = STextMsg("@ALL", "", "", "1000002", "Send Text \\n 發送文字 \\n 发送文字 ");  
-       rulJsonObject = WeixinUtil.PostToWeiXin(access_token, "POST", POST_URL, PostData);  
+       //rulJsonObject = WeixinUtil.PostToWeiXin(access_token, "POST", POST_URL, PostData);  
        // 打印结果  
         if(0==rulJsonObject.getInt("errcode")){  
             System.out.println("操作成功");  

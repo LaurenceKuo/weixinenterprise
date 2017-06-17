@@ -1,6 +1,6 @@
-package com.wistron.armstrong.wechat.entities;
+package com.wistron.armstrong.wechat.entity;
 
-public class AccessToken {
+public class AccessTokenEntity {
 	
 	private String Token;
 	private Integer ExpiresIn;
@@ -24,13 +24,13 @@ public class AccessToken {
 		this.ExpiresIn=ExpiresIn;
 	}
 	
-	public AccessToken (String Token, Integer ExpiresIn)
+	public AccessTokenEntity (String Token, Integer ExpiresIn)
 	{
 		this.Token=Token;
 		this.ExpiresIn=ExpiresIn;
 	}
 	
-	public AccessToken ()
+	public AccessTokenEntity ()
 	{
 	}
 }

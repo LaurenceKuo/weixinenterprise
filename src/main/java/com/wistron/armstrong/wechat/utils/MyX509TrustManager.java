@@ -1,4 +1,4 @@
-package com.wistron.armstrong.wechat.utilities;
+package com.wistron.armstrong.wechat.utils;
 
 
 import java.security.KeyStore;

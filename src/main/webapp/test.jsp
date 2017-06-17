@@ -26,6 +26,7 @@
 
 
 <script>
+  var linkURL="10.41.56.60";
     function sendMessage(){
       var title=$("#title").val();
       var party=document.getElementById("party");
@@ -64,7 +65,7 @@
         }
         msg = $.ajax({  
             type: "post",  
-            url:'http://10.41.56.60/weixinenterprise/rest/News/SendNews',
+            url:'http://'+linkURL+'/weixinenterprise/rest/News/SendNews',
             dataType : 'json',
             contentType : 'application/json',
             data : JSON.stringify(data),
@@ -100,7 +101,7 @@
         party.options[0]= new Option('--请选择发送部门--',0)
         var partise = $.ajax({  
             type: "post",  
-            url:'http://10.41.56.60/weixinenterprise/rest/Manager/GetPartiesList',//10.38.123.11
+            url:'http://'+linkURL+'/weixinenterprise/rest/Manager/GetPartiesList',//10.38.123.11
             dataType : 'json',
             contentType : 'application/json',
             async:false  
@@ -122,7 +123,7 @@
         tag.options[0]= new Option('--请选择发送群组--',0)
         var tags = $.ajax({  
             type: "post",  
-            url:'http://10.41.56.60/weixinenterprise/rest/Manager/GetTagsList',
+            url:'http://'+linkURL+'/weixinenterprise/rest/Manager/GetTagsList',
             dataType : 'json',
             contentType : 'application/json',
             async:false  
@@ -165,7 +166,7 @@
     function uploadFile(){
       alert(1);
       var ajax_option={
-          url: 'http://10.41.56.60/weixinenterprise/',                  //String, 表单提交的目标地址，此属性会覆盖表单的action属性
+          url: 'http://'+linkURL+'/weixinenterprise/',                  //String, 表单提交的目标地址，此属性会覆盖表单的action属性
           type:"POST",             //String，表单提交的方式(POST or GET)，此属性会覆盖表单的method属性
           dataType: 'json',    //String，指定接受服务端返回的数据类型(xml，script  or  json)
           clearFomr: false,   //boolean，默认为false，成功提交后是否清除所有表单元素的值

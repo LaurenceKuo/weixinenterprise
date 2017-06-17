@@ -1,4 +1,4 @@
-package com.wistron.armstrong.wechat.utilities;
+package com.wistron.armstrong.wechat.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -29,21 +29,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.wistron.armstrong.wechat.dao.AccessTokenDao;
-import com.wistron.armstrong.wechat.entities.AccessToken;
+import com.wistron.armstrong.wechat.entity.AccessTokenEntity;
+import com.wistron.armstrong.wechat.entity.UrlEntity;
 
 
 
 public class WeixinUtil {
 
     private final static Logger log = LogManager.getLogger(WeixinUtil.class);
-    // 获取access_token的接口地址（GET） 限200（次/天）
-    public final static String access_token_url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=CORPID&corpsecret=SECRETID";
-
-    // 菜单创建（POST） 限100（次/天）
-    public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
-
-   
-	
+ 
 	/**
 	 * 解析request中的xml 并将数据存储到一个Map中返回
 	 * @param request
@@ -229,16 +223,17 @@ public class WeixinUtil {
      * @param appsecret 密钥
      * @return
      */
-    public static AccessToken getAccessToken(String corpid, String secretid) throws JSONException, SQLException, Exception {
-    	AccessToken accessToken = null;
+    public static AccessTokenEntity getAccessToken(String corpid, String secretid) throws JSONException, SQLException, Exception {
+    	AccessTokenEntity accessToken = null;
         AccessTokenDao accessTokenDao = new AccessTokenDao();
         Connection con = new ConnectDBUtil().createConnection();
+        UrlEntity url=new UrlEntity();
         try {
         	//獲取本雞快取，取的到期前的ToKen。
         	accessToken = accessTokenDao.getToken(con, corpid, secretid);
             if (accessToken == null){
                 //已过期 重新请求
-                String requestUrl = access_token_url.replace("CORPID", corpid).replace("SECRETID", secretid);
+                String requestUrl = url.getAccessTokenUrl().replace("CORPID", corpid).replace("SECRETID", secretid);
                 JSONObject jsonObject = PostToWeiXin("", "GET", requestUrl, null);
                 
                 if (null != jsonObject)
@@ -246,7 +241,7 @@ public class WeixinUtil {
                 	if(jsonObject.getInt("errcode")==0)
                 	{
                 		//取得新的貧症候，寫回到DB
-                        accessToken = new AccessToken(jsonObject.getString("access_token"),jsonObject.getInt("expires_in"));
+                        accessToken = new AccessTokenEntity(jsonObject.getString("access_token"),jsonObject.getInt("expires_in"));
                         con.setAutoCommit(false);
                         accessTokenDao.updateToken(con, corpid, secretid, accessToken.getToken(), accessToken.getExpiresIn());
                         con.commit();

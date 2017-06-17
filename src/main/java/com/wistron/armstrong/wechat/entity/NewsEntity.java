@@ -1,6 +1,6 @@
-package com.wistron.armstrong.wechat.entities;
+package com.wistron.armstrong.wechat.entity;
 
-public class NewsEntities {
+public class NewsEntity {
 
 	public String title;
 	public String description;

@@ -1,10 +1,12 @@
-package com.wistron.armstrong.wechat.entities;
+package com.wistron.armstrong.wechat.entity;
 
-public class TagEntities {
+import java.util.ArrayList;
+
+public class TagEntity {
 	
 	private String TagName;
 	private Integer TagId;
-	
+	public static ArrayList<TagEntity> tags=null;
 	public String getTagName()
 	{
 		return this.TagName;
@@ -24,7 +26,7 @@ public class TagEntities {
 		this.TagId=TagId;
 	}
 	
-	public TagEntities (String TagName, Integer TagId)
+	public TagEntity (String TagName, Integer TagId)
 	{
 		this.TagName=TagName;
 		this.TagId=TagId;

@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.wistron.armstrong.wechat.entities.AccessToken;
+import com.wistron.armstrong.wechat.entity.AccessTokenEntity;
 
 public class AccessTokenDao {
 	
-	public AccessToken getToken(Connection con, String corpid, String secretid )throws SQLException
+	public AccessTokenEntity getToken(Connection con, String corpid, String secretid )throws SQLException
 	{
-		AccessToken accessToken = null;
+		AccessTokenEntity accessToken = null;
 	     String sql = "SELECT TOKEN, EXPIRESIN FROM AMBTOKEN WHERE SYSDATE()- CREATETIME<EXPIRESIN AND CORPID = ? AND SECRETID = ?";
 	     PreparedStatement stat = null;
 	        ResultSet rs = null;
@@ -24,7 +24,7 @@ public class AccessTokenDao {
 	         	
 	         	while(rs.next())
 	         	{
-	         		accessToken = new AccessToken(rs.getString("TOKEN"),rs.getInt("EXPIRESIN"));
+	         		accessToken = new AccessTokenEntity(rs.getString("TOKEN"),rs.getInt("EXPIRESIN"));
 	         	}
 	        }
 	        finally
