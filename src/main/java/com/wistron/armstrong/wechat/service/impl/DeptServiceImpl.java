@@ -50,7 +50,8 @@ public class DeptServiceImpl implements IDeptService {
 	            //For not show error when return list, array by Jersey
 	        	GenericEntity<List<DepartmentEntity>> list = new GenericEntity<List<DepartmentEntity>>(departmentlist) {};
 	        	logger.info("Department: " + departments.toString());
-	            return Response.ok(list).build();
+	        	//return list;
+	        	return Response.ok(list).build();
 	        }         
 	        else {  
 	        	logger.warn("Get Department Fail : " + rulJsonObject.getString("errmsg"));

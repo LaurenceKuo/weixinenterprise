@@ -4,6 +4,8 @@ import com.wistron.armstrong.wechat.factory.ObjectFactory;
 import com.wistron.armstrong.wechat.service.ITagService;
 import org.json.JSONException;
 import org.apache.log4j.Logger;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -14,12 +16,13 @@ import javax.ws.rs.core.Response;
 public class TagController {
 	 
 	final static Logger logger = Logger.getLogger(DeptController.class);
-	 @POST
+	 @GET
 	 @Path("/get")
 	 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	 public Response getTagList() throws Exception, JSONException
 	 { 
 		 ITagService service=(ITagService)ObjectFactory.newInstance("TagServiceImpl");
+		 System.out.println("获取成功！！！");
 		 return service.getTagList();
 	 }
 	 

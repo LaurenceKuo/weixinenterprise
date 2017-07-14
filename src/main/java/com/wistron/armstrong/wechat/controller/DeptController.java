@@ -4,7 +4,7 @@ import com.wistron.armstrong.wechat.factory.ObjectFactory;
 import com.wistron.armstrong.wechat.service.IDeptService;
 import org.json.JSONException;
 import org.apache.log4j.Logger;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -14,13 +14,14 @@ import javax.ws.rs.core.Response;
 public class DeptController {
 	 
 	final static Logger logger = Logger.getLogger(DeptController.class);
-	 @POST
+	 @GET
 	 @Path("/get")
 	 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	 public Response getDeptList() throws Exception, JSONException
 	 { 
 		 System.out.println("开始获取部门");
 		 IDeptService service=(IDeptService)ObjectFactory.newInstance("DeptServiceImpl");
+		 System.out.println("获取成功！！！");
 		 return service.getDeptList();
 	 }
 	 
